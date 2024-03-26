@@ -1,15 +1,36 @@
 extends RigidBody3D
 
+## How much vertical force to apply when moving.
+@export_range(750.0, 5000.0) var thrust: float = 1000.0
+
+## How much rotational force to apply when orienting the rocket.
+@export var torque_thrust: float = 100.0
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if Input.is_action_pressed("boost"):
-		#position.y += delta
-		apply_central_force(basis.y * delta * 1000)
+		apply_central_force(basis.y * delta * thrust)
 
 	if Input.is_action_pressed("rotate_left"):
-		#rotate_z(delta)
-		apply_torque(Vector3(0.0, 0.0, 100.0 * delta))
+		apply_torque(Vector3(0.0, 0.0, torque_thrust * delta))
 	elif Input.is_action_pressed("rotate_right"):
-		#rotate_z(-delta)
-		apply_torque(Vector3(0.0, 0.0, -100.0 * delta))
+		apply_torque(Vector3(0.0, 0.0, -torque_thrust * delta))
 
+
+func _on_body_entered(body: Node) -> void:
+	var groups = body.get_groups()
+	if "Hazard" in groups:
+		crash_sequence()
+	elif "Goal" in groups:
+		complete_level()
+
+
+func complete_level() -> void:
+	print("You win!")
+	get_tree().quit()
+
+
+func crash_sequence() -> void:
+	print("Boom!")
+	get_tree().reload_current_scene()
