@@ -9,7 +9,11 @@ extends RigidBody3D
 @onready var explosion_audio: AudioStreamPlayer = $ExplosionAudio
 @onready var success_audio: AudioStreamPlayer = $SuccessAudio
 @onready var rocket_audio: AudioStreamPlayer3D = $RocketAudio
-#@onready var rocket_audio2: AudioStreamPlayer = $Rocket2
+@onready var booster_particles: GPUParticles3D = $BoosterParticles
+@onready var booster_particles_right: GPUParticles3D = $BoosterParticlesRight
+@onready var booster_particles_left: GPUParticles3D = $BoosterParticlesLeft
+@onready var explosion_particles: GPUParticles3D = $ExplosionParticles
+@onready var success_particles: GPUParticles3D = $SuccessParticles
 
 var is_transitioning: bool = false
 
@@ -17,15 +21,24 @@ var is_transitioning: bool = false
 func _process(delta: float) -> void:
 	if Input.is_action_pressed("boost"):
 		apply_central_force(basis.y * delta * thrust)
+		booster_particles.emitting = true
 		if not rocket_audio.playing:
 			rocket_audio.play()
 	else:
+		booster_particles.emitting = false
 		rocket_audio.stop()
 
 	if Input.is_action_pressed("rotate_left"):
 		apply_torque(Vector3(0.0, 0.0, torque_thrust * delta))
-	elif Input.is_action_pressed("rotate_right"):
+		booster_particles_right.emitting = true
+	else:
+		booster_particles_right.emitting = false
+
+	if Input.is_action_pressed("rotate_right"):
 		apply_torque(Vector3(0.0, 0.0, -torque_thrust * delta))
+		booster_particles_left.emitting = true
+	else:
+		booster_particles_left.emitting = false
 
 
 func _on_body_entered(body: Node) -> void:
@@ -40,6 +53,8 @@ func _on_body_entered(body: Node) -> void:
 func complete_level(next_level_file) -> void:
 	print("You win!")
 	success_audio.play()
+	success_particles.emitting = true
+
 	set_process(false)
 	is_transitioning = true
 
@@ -53,6 +68,8 @@ func complete_level(next_level_file) -> void:
 func crash_sequence() -> void:
 	print("Boom!")
 	explosion_audio.play()
+	explosion_particles.emitting = true
+
 	is_transitioning = true
 	# Disable the `_process()` function to remove user control of the rocket
 	set_process(false)
