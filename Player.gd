@@ -23,12 +23,12 @@ func _on_body_entered(body: Node) -> void:
 	if "Hazard" in groups:
 		crash_sequence()
 	elif "Goal" in groups:
-		complete_level()
+		complete_level(body.file_path)
 
 
-func complete_level() -> void:
+func complete_level(next_level_file) -> void:
 	print("You win!")
-	get_tree().quit()
+	get_tree().change_scene_to_file(next_level_file)
 
 
 func crash_sequence() -> void:
