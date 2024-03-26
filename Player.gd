@@ -6,12 +6,21 @@ extends RigidBody3D
 ## How much rotational force to apply when orienting the rocket.
 @export var torque_thrust: float = 100.0
 
+@onready var explosion_audio: AudioStreamPlayer = $ExplosionAudio
+@onready var success_audio: AudioStreamPlayer = $SuccessAudio
+@onready var rocket_audio: AudioStreamPlayer3D = $RocketAudio
+#@onready var rocket_audio2: AudioStreamPlayer = $Rocket2
+
 var is_transitioning: bool = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if Input.is_action_pressed("boost"):
 		apply_central_force(basis.y * delta * thrust)
+		if not rocket_audio.playing:
+			rocket_audio.play()
+	else:
+		rocket_audio.stop()
 
 	if Input.is_action_pressed("rotate_left"):
 		apply_torque(Vector3(0.0, 0.0, torque_thrust * delta))
@@ -30,11 +39,12 @@ func _on_body_entered(body: Node) -> void:
 
 func complete_level(next_level_file) -> void:
 	print("You win!")
+	success_audio.play()
 	set_process(false)
 	is_transitioning = true
 
 	var tween = create_tween()
-	tween.tween_interval(1.0)
+	tween.tween_interval(2.5)
 	tween.tween_callback(func(): get_tree().change_scene_to_file(next_level_file))
 	# Alternative callback:
 	#tween.tween_callback(get_tree().change_scene_to_file.bind(next_level_file))
@@ -42,10 +52,11 @@ func complete_level(next_level_file) -> void:
 
 func crash_sequence() -> void:
 	print("Boom!")
+	explosion_audio.play()
 	is_transitioning = true
 	# Disable the `_process()` function to remove user control of the rocket
 	set_process(false)
 
 	var tween = create_tween()
-	tween.tween_interval(1.0)
+	tween.tween_interval(2.5)
 	tween.tween_callback(get_tree().reload_current_scene)
