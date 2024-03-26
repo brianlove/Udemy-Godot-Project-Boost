@@ -6,6 +6,7 @@ extends RigidBody3D
 ## How much rotational force to apply when orienting the rocket.
 @export var torque_thrust: float = 100.0
 
+var is_transitioning: bool = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -19,18 +20,32 @@ func _process(delta: float) -> void:
 
 
 func _on_body_entered(body: Node) -> void:
-	var groups = body.get_groups()
-	if "Hazard" in groups:
-		crash_sequence()
-	elif "Goal" in groups:
-		complete_level(body.file_path)
+	if not is_transitioning:
+		var groups = body.get_groups()
+		if "Hazard" in groups:
+			crash_sequence()
+		elif "Goal" in groups:
+			complete_level(body.file_path)
 
 
 func complete_level(next_level_file) -> void:
 	print("You win!")
-	get_tree().change_scene_to_file(next_level_file)
+	set_process(false)
+	is_transitioning = true
+
+	var tween = create_tween()
+	tween.tween_interval(1.0)
+	tween.tween_callback(func(): get_tree().change_scene_to_file(next_level_file))
+	# Alternative callback:
+	#tween.tween_callback(get_tree().change_scene_to_file.bind(next_level_file))
 
 
 func crash_sequence() -> void:
 	print("Boom!")
-	get_tree().reload_current_scene()
+	is_transitioning = true
+	# Disable the `_process()` function to remove user control of the rocket
+	set_process(false)
+
+	var tween = create_tween()
+	tween.tween_interval(1.0)
+	tween.tween_callback(get_tree().reload_current_scene)
