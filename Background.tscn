@@ -1,0 +1,90 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqv1asraapc0r"]
+
+[ext_resource type="Material" uid="uid://dhd5qbus816k7" path="res://Level/FloorMaterial2.tres" id="1_jwk3w"]
+[ext_resource type="Material" uid="uid://boisteh6de84a" path="res://Level/DarkBackgroundMaterial.tres" id="2_0hua4"]
+
+[node name="Background" type="CSGBox3D" groups=["Hazard"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0)
+use_collision = true
+size = Vector3(30, 8, 6)
+material = ExtResource("1_jwk3w")
+
+[node name="BackPanel" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -6)
+visible = false
+size = Vector3(36, 14, 2)
+
+[node name="Wall" type="CSGBox3D" parent="."]
+transform = Transform3D(0.959535, -0.281588, 0, 0.281588, 0.959535, 0, 0, 0, 1, -16.5084, 7.664, -2)
+size = Vector3(4, 10, 8)
+material = ExtResource("1_jwk3w")
+
+[node name="Wall2" type="CSGBox3D" parent="."]
+transform = Transform3D(0.884329, 0.466865, 0, -0.466865, 0.884329, 0, 0, 0, 1, -14.6792, 13.0586, 0)
+size = Vector3(4, 10, 4)
+material = ExtResource("1_jwk3w")
+
+[node name="Wall5" type="CSGBox3D" parent="."]
+transform = Transform3D(0.396823, 0.87411, -0.280113, -0.838579, 0.469333, 0.276607, 0.373251, 0.125133, 0.919253, -10.4379, 14.9977, -3.78372)
+size = Vector3(4, 10, 4)
+material = ExtResource("1_jwk3w")
+
+[node name="Wall3" type="CSGBox3D" parent="."]
+transform = Transform3D(0.956044, 0.293223, 0, -0.293223, 0.956044, 0, 0, 0, 1, 16.736, 7.664, -2)
+size = Vector3(4, 10, 8)
+material = ExtResource("1_jwk3w")
+
+[node name="Wall4" type="CSGBox3D" parent="."]
+transform = Transform3D(0.967223, -0.253927, 0, 0.253927, 0.967223, 0, 0, 0, 1, 17.736, 14.0218, 0)
+size = Vector3(4, 10, 4)
+material = ExtResource("1_jwk3w")
+
+[node name="Ceiling" type="CSGBox3D" parent="."]
+transform = Transform3D(-0.47155, 0.881839, 0, -0.881839, -0.47155, 0, 0, 0, 1, -9.93454, 17.4568, 0)
+size = Vector3(4, 10, 4)
+material = ExtResource("1_jwk3w")
+
+[node name="Ceiling2" type="CSGBox3D" parent="."]
+transform = Transform3D(0.0965059, 0.995333, 0, -0.995333, 0.0965059, 0, 0, 0, 1, -1.50659, 17.4568, -2)
+size = Vector3(4, 10, 8)
+material = ExtResource("1_jwk3w")
+
+[node name="Ceiling3" type="CSGBox3D" parent="."]
+transform = Transform3D(-0.242819, 0.970071, 0, -0.970071, -0.242819, 0, 0, 0, 1, 4.72281, 17.8211, 0)
+size = Vector3(4, 10, 4)
+material = ExtResource("1_jwk3w")
+
+[node name="Ceiling4" type="CSGBox3D" parent="."]
+transform = Transform3D(0.428746, 0.903425, 0, -0.903425, 0.428746, 0, 0, 0, 1, 12.5803, 16.8894, 0)
+size = Vector3(4, 10, 4)
+material = ExtResource("1_jwk3w")
+
+[node name="Ceiling5" type="CSGBox3D" parent="."]
+transform = Transform3D(-0.332309, 0.94317, 0, -0.894294, -0.315089, -0.317735, -0.299678, -0.105586, 0.94818, 13.3009, 15.9072, -3.74801)
+size = Vector3(4, 10, 4)
+material = ExtResource("1_jwk3w")
+
+[node name="BackCeilingRock" type="CSGBox3D" parent="."]
+transform = Transform3D(0.454751, 0.884428, 0.104822, -0.803902, 0.458278, -0.379107, -0.383331, 0.0881326, 0.919396, 6.08986, 16.3047, -3.54115)
+size = Vector3(4, 10, 4)
+material = ExtResource("2_0hua4")
+
+[node name="BackRock2" type="CSGBox3D" parent="."]
+transform = Transform3D(0.9899, -0.12578, -0.0653962, 0.141765, 0.878284, 0.456641, -1.42906e-08, -0.4613, 0.887244, 11.5426, 5.1809, -3.98438)
+size = Vector3(8, 6, 2)
+material = ExtResource("2_0hua4")
+
+[node name="BackRock" type="CSGBox3D" parent="."]
+transform = Transform3D(0.660945, 0.665818, 0.346175, -0.750434, 0.58642, 0.304894, -5.53191e-08, -0.4613, 0.887244, -11.9971, 6.49753, -4.9868)
+size = Vector3(8, 6, 2)
+material = ExtResource("2_0hua4")
+
+[node name="BackRock3" type="CSGBox3D" parent="."]
+transform = Transform3D(-0.518508, -0.816796, -0.252973, 0.685935, -0.573965, 0.447276, -0.51053, 0.0583935, 0.857874, 2.42863, 5.1809, -3.98438)
+size = Vector3(8, 4, 2)
+material = ExtResource("2_0hua4")
+
+[node name="BackRock4" type="CSGBox3D" parent="."]
+transform = Transform3D(0.117705, -0.983554, 0.136996, 0.460987, 0.176308, 0.869716, -0.879566, -0.039217, 0.474158, -1.48509, 4.15074, -3.00212)
+size = Vector3(7, 3, 2)
+material = ExtResource("2_0hua4")

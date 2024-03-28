@@ -1,6 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://dpirdribidxwy"]
 
 [ext_resource type="Script" path="res://Level/LandingPad.gd" id="1_biiaq"]
+[ext_resource type="PackedScene" uid="uid://dqv1asraapc0r" path="res://Background.tscn" id="1_uiciy"]
 [ext_resource type="PackedScene" uid="uid://bcmothrgy18wm" path="res://Player.tscn" id="2_o84mx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_00m23"]
@@ -15,9 +16,6 @@ background_mode = 2
 sky = SubResource("Sky_i7ikc")
 tonemap_mode = 2
 glow_enabled = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6iqp2"]
-albedo_color = Color(0.6, 0.4075, 0.27, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_riety"]
 albedo_color = Color(0.3, 0.4, 0.6, 1)
@@ -34,20 +32,16 @@ environment = SubResource("Environment_e0lj0")
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Floor" type="CSGBox3D" parent="." groups=["Hazard"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0)
-use_collision = true
-size = Vector3(30, 8, 6)
-material = SubResource("StandardMaterial3D_6iqp2")
+[node name="Background" parent="." instance=ExtResource("1_uiciy")]
 
 [node name="LaunchPad" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.2, 0)
 use_collision = true
 size = Vector3(4, 0.4, 4)
 material = SubResource("StandardMaterial3D_riety")
 
 [node name="LandingPad" type="CSGBox3D" parent="." groups=["Goal"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0.2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.2, 0)
 use_collision = true
 size = Vector3(4, 0.4, 4)
 material = SubResource("StandardMaterial3D_apfjs")
@@ -58,4 +52,4 @@ file_path = "res://Level/Level_02.tscn"
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 8, 12)
 
 [node name="Player" parent="." instance=ExtResource("2_o84mx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1.4, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.4, 0)
