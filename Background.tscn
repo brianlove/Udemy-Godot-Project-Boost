@@ -1,13 +1,51 @@
-[gd_scene load_steps=3 format=3 uid="uid://dqv1asraapc0r"]
+[gd_scene load_steps=6 format=3 uid="uid://dqv1asraapc0r"]
 
 [ext_resource type="Material" uid="uid://dhd5qbus816k7" path="res://Level/FloorMaterial2.tres" id="1_jwk3w"]
 [ext_resource type="Material" uid="uid://boisteh6de84a" path="res://Level/DarkBackgroundMaterial.tres" id="2_0hua4"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gv2ve"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_i7ikc"]
+sky_material = SubResource("ProceduralSkyMaterial_gv2ve")
+
+[sub_resource type="Environment" id="Environment_lq205"]
+background_mode = 1
+background_color = Color(0.05, 0.0227667, 0.007, 1)
+sky = SubResource("Sky_i7ikc")
+ambient_light_source = 3
+tonemap_mode = 2
+glow_enabled = true
 
 [node name="Background" type="CSGBox3D" groups=["Hazard"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0)
 use_collision = true
 size = Vector3(30, 8, 6)
 material = ExtResource("1_jwk3w")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_lq205")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.984808, -0.111619, 0.133022, 0, 0.766044, 0.642788, -0.173648, -0.633022, 0.754407, 0, 0, 0)
+light_energy = 0.5
+shadow_enabled = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+omni_range = 12.0
+omni_attenuation = 0.5
+
+[node name="OmniLight3DLeft" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 10, 0)
+omni_range = 12.0
+omni_attenuation = 0.5
+
+[node name="OmniLight3DRight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 10, 0)
+omni_range = 12.0
+omni_attenuation = 0.5
 
 [node name="BackPanel" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -6)
